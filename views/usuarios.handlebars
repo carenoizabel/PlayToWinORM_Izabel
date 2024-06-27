@@ -1,4 +1,4 @@
-<h1>Usuários</h1>
+<h1>Usuários Cadastrados</h1>
 
 <a href="/usuarios/novo">Cadastrar</a>
 <table border="'1">
@@ -16,10 +16,11 @@
             <td>{{this.nome}}</td>
              <td>
             <a href="/usuarios/{{this.id}}/atualizar">Atualizar</a>
-            <form action="/usuarios/excluir" method="post">
+            <form action="/usuarios/{{this.id}}/excluir" method="post">
             <input type="text" value="{{this.id}}" name="id"/>
             <input type="submit" value="Excluir">
             </form>
+            <a href="/usuarios/{{this.id}}/cartoes">Ver Cartões</a>
             </td>
         </tr>
     {{/each}}
