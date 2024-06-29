@@ -1,20 +1,20 @@
-<h1>Cartões Cadastrados</h1>
+<h1>Conquistas do Jogo {{jogo.titulo}}</h1>
 
-<h1>Olá {{usuario.nome}}, seja bem vindo a tela dos dados do seu cartão!</h1>
+<h1>Olá jogador(a), seja bem vindo a tela de suas conquistas!</h1>
 
-<a class="button" href="/usuarios/{{usuario.id}}/novoCartao">Cadastrar cartão</a>
+<a class="button" href="/conquistas/{{jogo.id}}/novaConquista">Cadastrar Nova Conquista</a>
 
 <table border="1">
   <!-- table row -->
   <tr>
     <!-- table head -->
-    <th>Número</th>
-    <th>Nome</th>
+    <th>Título</th>
+    <th>Descrição</th>
   </tr>
-  {{#each cartoes}}
+  {{#each conquistas}}
     <tr>
-      <td>{{this.numero}}</td>
-      <td>{{this.nome}}</td>
+      <td>{{this.titulo}}</td>
+      <td>{{this.descricao}}</td>
     </tr>
   {{/each}}
 </table>
@@ -63,19 +63,5 @@
         }
         td a:hover {
             text-decoration: underline;
-        }
-        form {
-            display: inline-block;
-        }
-        input[type="submit"] {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #d32f2f;
         }
     </style>

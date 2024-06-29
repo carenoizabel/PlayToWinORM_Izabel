@@ -1,12 +1,74 @@
+<style>
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        a.button {
+            display: inline-block;
+            padding: 8px 16px;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+        a.button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        td a {
+            margin-right: 5px;
+            text-decoration: none;
+            color: #1e90ff;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+        form {
+            display: inline-block;
+        }
+        input[type="submit"] {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+
 <h1>Usuários Cadastrados</h1>
 
-<a href="/usuarios/novo">Cadastrar</a>
+<a class="button" href="/usuarios/novo">Cadastrar Novo Usuário</a>
 <table border="'1">
     <tr>
         <td>ID</td>
         <td>Nickname</td>
         <td>Nome</td>
-       
+        <td>Atualização de Dados</td>
+        <td>Cartões</td>
     </tr>
 
     {{#each usuarios}}
@@ -20,7 +82,9 @@
             <input type="text" value="{{this.id}}" name="id"/>
             <input type="submit" value="Excluir">
             </form>
-            <a href="/usuarios/{{this.id}}/cartoes">Ver Cartões</a>
+            </td>
+            <td>
+                <a href="/usuarios/{{this.id}}/cartoes">Ver Cartões</a>
             </td>
         </tr>
     {{/each}}

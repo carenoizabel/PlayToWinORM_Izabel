@@ -6,6 +6,7 @@ const express = require("express");
 const Usuario = require("./models/Usuario");
 const Cartao = require("./models/Cartao");
 const Jogo = require("./models/Jogo");
+const Conquista = require("./models/Conquista");
 
 Jogo.belongsToMany(Usuario, { through: "aquisicoes" });
 Usuario.belongsToMany(Jogo, { through: "aquisicoes" });
@@ -37,6 +38,10 @@ app.get("/usuarios/novo", (req, res) => {
     res.render('formUsuario')
 });
 
+app.get("/jogos/novo", (req, res) => {
+    res.render('formJogo')
+});
+
 app.get("/", (req, res) => {
     res.render('home')
 });
@@ -44,6 +49,11 @@ app.get("/", (req, res) => {
 app.get("/usuarios", async (req, res) => {
     const usuarios = await Usuario.findAll({raw: true})
     res.render('usuarios', { usuarios});
+});
+
+app.get("/jogos", async (req, res) => {
+    const jogos = await Jogo.findAll({raw: true})
+    res.render('jogos', { jogos});
 });
 
 app.post("/usuarios/novo", async (req, res) => {
@@ -68,8 +78,8 @@ app.post("/cadastrarjogo", async (req, res) => {
     };
 
     const jogo = await Jogo.create(dadosJogo);
-
-    res.redirect(`/cadastrarJogo`);
+    res.send("Jogo inserido sob o id " + jogo.id);
+    
 });
 
 app.get("/cadastrarJogo", (req, res) => {
@@ -151,6 +161,44 @@ app.get("/usuarios/:id/cartoes", async (req, res) => {
     await Cartao.create(dadosCartao);
   
     res.redirect(`/usuarios/${id}/cartoes`);
+  });
+
+// Rotas para conquistas
+
+//Ver conquistas do jogo
+app.get("/jogos/:id/conquistas", async (req, res) => {
+    const id = parseInt(req.params.id);
+    const jogo = await Jogo.findByPk(id, { raw: true });
+  
+    const conquistas = await Conquista.findAll({
+      raw: true,
+      where: { JogoId: id },
+    });
+  
+    res.render("conquistas.handlebars", { jogo, conquistas });
+  });
+  
+  //Formulário de conquistas de cada jogo
+  app.get("/conquistas/:id/novaConquista", async (req, res) => {
+    const id = parseInt(req.params.id);
+    const jogo = await Jogo.findByPk(id, { raw: true });
+  
+    res.render("formConquistas", { jogo });
+  });
+  
+  //Cadastro de conquista
+  app.post("/jogos/:id/novaConquista", async (req, res) => {
+    const id = parseInt(req.params.id);
+  
+    const dadosConquista = {
+      titulo: req.body.titulo,
+      descricao: req.body.descricao,
+      JogoId: id,
+    };
+  
+    await Conquista.create(dadosConquista);
+  
+    res.redirect(`/jogos/${id}/conquistas`);
   });
 
 app.listen(8000, () =>{

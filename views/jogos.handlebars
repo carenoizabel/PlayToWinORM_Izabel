@@ -1,22 +1,24 @@
-<h1>Cartões Cadastrados</h1>
-
-<h1>Olá {{usuario.nome}}, seja bem vindo a tela dos dados do seu cartão!</h1>
-
-<a class="button" href="/usuarios/{{usuario.id}}/novoCartao">Cadastrar cartão</a>
-
-<table border="1">
-  <!-- table row -->
-  <tr>
-    <!-- table head -->
-    <th>Número</th>
-    <th>Nome</th>
-  </tr>
-  {{#each cartoes}}
+<h1>Jogos Cadastrados</h1>
+<a class="button" href="/cadastrarJogo">Cadastrar Novo Jogo</a>
+<table>
     <tr>
-      <td>{{this.numero}}</td>
-      <td>{{this.nome}}</td>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Descrição</th>
+        <th>Preço Base</th>
+        <th>Conquistas</th>
     </tr>
-  {{/each}}
+    {{#each jogos}}
+    <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.titulo}}</td>
+        <td>{{this.descricao}}</td>
+        <td>R$ {{this.precoBase}}</td>
+        <td>
+                <a href="/jogos/{{this.id}}/conquistas">Ver Conquistas</a>
+            </td>
+    </tr>
+    {{/each}}
 </table>
 
 <style>
@@ -63,19 +65,5 @@
         }
         td a:hover {
             text-decoration: underline;
-        }
-        form {
-            display: inline-block;
-        }
-        input[type="submit"] {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #d32f2f;
         }
     </style>
